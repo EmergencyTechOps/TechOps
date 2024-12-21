@@ -1,0 +1,4940 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    creationTimestamp: "2024-12-21T16:56:25Z"
+    generateName: adservice-5ffbb89896-
+    labels:
+      app: adservice
+      pod-template-hash: 5ffbb89896
+    name: adservice-5ffbb89896-4pgkz
+    namespace: online-boutique
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: adservice-5ffbb89896
+      uid: 5407f7ae-09eb-4e7f-a02f-1cb84e962c1b
+    resourceVersion: "17753"
+    uid: 78bd997e-71cc-42f0-bfb3-23f07895d98c
+  spec:
+    containers:
+    - env:
+      - name: PORT
+        value: "9555"
+      image: gcr.io/google-samples/microservices-demo/adservice:v0.8.0
+      imagePullPolicy: IfNotPresent
+      livenessProbe:
+        failureThreshold: 3
+        grpc:
+          port: 9555
+          service: ""
+        initialDelaySeconds: 20
+        periodSeconds: 15
+        successThreshold: 1
+        timeoutSeconds: 1
+      name: server
+      ports:
+      - containerPort: 9555
+        protocol: TCP
+      readinessProbe:
+        failureThreshold: 3
+        grpc:
+          port: 9555
+          service: ""
+        initialDelaySeconds: 20
+        periodSeconds: 15
+        successThreshold: 1
+        timeoutSeconds: 1
+      resources:
+        limits:
+          cpu: 300m
+          memory: 300Mi
+        requests:
+          cpu: 200m
+          memory: 180Mi
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+          - ALL
+        privileged: false
+        readOnlyRootFilesystem: true
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-vsdbw
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: ip-192-168-88-240.ap-south-1.compute.internal
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext:
+      fsGroup: 1000
+      runAsGroup: 1000
+      runAsNonRoot: true
+      runAsUser: 1000
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 5
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: kube-api-access-vsdbw
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:58Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:25Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:57:40Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:57:40Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:25Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://ca0611b753086afb7186d7c4481987f38066aa9a41baa525d72b42fa49bd417d
+      image: gcr.io/google-samples/microservices-demo/adservice:v0.8.0
+      imageID: gcr.io/google-samples/microservices-demo/adservice@sha256:45fb8ed886902c0c49e044b1f8870fad61c1022fa23c4943098302a8f1c5b75f
+      lastState: {}
+      name: server
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-12-21T16:56:57Z"
+    hostIP: 192.168.88.240
+    hostIPs:
+    - ip: 192.168.88.240
+    phase: Running
+    podIP: 192.168.70.49
+    podIPs:
+    - ip: 192.168.70.49
+    qosClass: Burstable
+    startTime: "2024-12-21T16:56:25Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    creationTimestamp: "2024-12-21T16:56:24Z"
+    generateName: cartservice-648c6cf8f9-
+    labels:
+      app: cartservice
+      pod-template-hash: 648c6cf8f9
+    name: cartservice-648c6cf8f9-tpbtr
+    namespace: online-boutique
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: cartservice-648c6cf8f9
+      uid: 10b45757-82ae-4e34-8adc-cfd4fe4aa8bc
+    resourceVersion: "17676"
+    uid: bf2b7220-996a-4d9b-aafb-c70c6a2dd90c
+  spec:
+    containers:
+    - env:
+      - name: REDIS_ADDR
+        value: redis-cart:6379
+      image: gcr.io/google-samples/microservices-demo/cartservice:v0.8.0
+      imagePullPolicy: IfNotPresent
+      livenessProbe:
+        failureThreshold: 3
+        grpc:
+          port: 7070
+          service: ""
+        initialDelaySeconds: 15
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 1
+      name: server
+      ports:
+      - containerPort: 7070
+        protocol: TCP
+      readinessProbe:
+        failureThreshold: 3
+        grpc:
+          port: 7070
+          service: ""
+        initialDelaySeconds: 15
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 1
+      resources:
+        limits:
+          cpu: 300m
+          memory: 128Mi
+        requests:
+          cpu: 200m
+          memory: 64Mi
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+          - ALL
+        privileged: false
+        readOnlyRootFilesystem: true
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-l27fq
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: ip-192-168-88-240.ap-south-1.compute.internal
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext:
+      fsGroup: 1000
+      runAsGroup: 1000
+      runAsNonRoot: true
+      runAsUser: 1000
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 5
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: kube-api-access-l27fq
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:48Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:24Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:57:15Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:57:15Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:24Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://08bc19e3ddaa0f19b98bc5792fee66e5e34218740d37f227e0006c698c202203
+      image: gcr.io/google-samples/microservices-demo/cartservice:v0.8.0
+      imageID: gcr.io/google-samples/microservices-demo/cartservice@sha256:49a71db4bf4cf0a4c0e789f3cb092950a53686087e619a8ad6b02c679ba135e3
+      lastState: {}
+      name: server
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-12-21T16:56:48Z"
+    hostIP: 192.168.88.240
+    hostIPs:
+    - ip: 192.168.88.240
+    phase: Running
+    podIP: 192.168.77.166
+    podIPs:
+    - ip: 192.168.77.166
+    qosClass: Burstable
+    startTime: "2024-12-21T16:56:24Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    creationTimestamp: "2024-12-21T16:56:23Z"
+    generateName: checkoutservice-c45478579-
+    labels:
+      app: checkoutservice
+      pod-template-hash: c45478579
+    name: checkoutservice-c45478579-5mq7z
+    namespace: online-boutique
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: checkoutservice-c45478579
+      uid: 8b0bffa7-992f-4b48-b134-f5d3c66c18be
+    resourceVersion: "17429"
+    uid: 48db4ae5-2212-4a28-b702-4039475b2297
+  spec:
+    containers:
+    - env:
+      - name: PORT
+        value: "5050"
+      - name: PRODUCT_CATALOG_SERVICE_ADDR
+        value: productcatalogservice:3550
+      - name: SHIPPING_SERVICE_ADDR
+        value: shippingservice:50051
+      - name: PAYMENT_SERVICE_ADDR
+        value: paymentservice:50051
+      - name: EMAIL_SERVICE_ADDR
+        value: emailservice:5000
+      - name: CURRENCY_SERVICE_ADDR
+        value: currencyservice:7000
+      - name: CART_SERVICE_ADDR
+        value: cartservice:7070
+      - name: COLLECTOR_SERVICE_ADDR
+        value: tempo-distributor.monitoring:4317
+      - name: ENABLE_STATS
+        value: "1"
+      - name: ENABLE_TRACING
+        value: "1"
+      image: gcr.io/google-samples/microservices-demo/checkoutservice:v0.8.0
+      imagePullPolicy: IfNotPresent
+      livenessProbe:
+        failureThreshold: 3
+        grpc:
+          port: 5050
+          service: ""
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 1
+      name: server
+      ports:
+      - containerPort: 5050
+        protocol: TCP
+      readinessProbe:
+        failureThreshold: 3
+        grpc:
+          port: 5050
+          service: ""
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 1
+      resources:
+        limits:
+          cpu: 200m
+          memory: 128Mi
+        requests:
+          cpu: 100m
+          memory: 64Mi
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+          - ALL
+        privileged: false
+        readOnlyRootFilesystem: true
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-mghsx
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: ip-192-168-88-240.ap-south-1.compute.internal
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext:
+      fsGroup: 1000
+      runAsGroup: 1000
+      runAsNonRoot: true
+      runAsUser: 1000
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: kube-api-access-mghsx
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:32Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:23Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:32Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:32Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:23Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://328d2f46ab39f37f0d18ae600054930a9b146b8b68acee9c1e944c9ed77a1698
+      image: gcr.io/google-samples/microservices-demo/checkoutservice:v0.8.0
+      imageID: gcr.io/google-samples/microservices-demo/checkoutservice@sha256:c703e33e1c7ef6e0cdfee582b4b948159b964d502d352d14ed452df2e5a40734
+      lastState: {}
+      name: server
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-12-21T16:56:32Z"
+    hostIP: 192.168.88.240
+    hostIPs:
+    - ip: 192.168.88.240
+    phase: Running
+    podIP: 192.168.95.202
+    podIPs:
+    - ip: 192.168.95.202
+    qosClass: Burstable
+    startTime: "2024-12-21T16:56:23Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    creationTimestamp: "2024-12-21T16:56:25Z"
+    generateName: currencyservice-5f494866cf-
+    labels:
+      app: currencyservice
+      pod-template-hash: 5f494866cf
+    name: currencyservice-5f494866cf-6bqcz
+    namespace: online-boutique
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: currencyservice-5f494866cf
+      uid: 8835d450-67d3-4393-a981-b94e9c96d325
+    resourceVersion: "17609"
+    uid: 35fbd669-5a69-41e3-a430-58d66c3913b0
+  spec:
+    containers:
+    - env:
+      - name: PORT
+        value: "7000"
+      - name: DISABLE_PROFILER
+        value: "1"
+      - name: COLLECTOR_SERVICE_ADDR
+        value: tempo-distributor.monitoring:4317
+      - name: ENABLE_STATS
+        value: "1"
+      - name: ENABLE_TRACING
+        value: "1"
+      image: gcr.io/google-samples/microservices-demo/currencyservice:v0.8.0
+      imagePullPolicy: IfNotPresent
+      livenessProbe:
+        failureThreshold: 3
+        grpc:
+          port: 7000
+          service: ""
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 1
+      name: server
+      ports:
+      - containerPort: 7000
+        name: grpc
+        protocol: TCP
+      readinessProbe:
+        failureThreshold: 3
+        grpc:
+          port: 7000
+          service: ""
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 1
+      resources:
+        limits:
+          cpu: 200m
+          memory: 128Mi
+        requests:
+          cpu: 100m
+          memory: 64Mi
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+          - ALL
+        privileged: false
+        readOnlyRootFilesystem: true
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-7vpq6
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: ip-192-168-88-240.ap-south-1.compute.internal
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext:
+      fsGroup: 1000
+      runAsGroup: 1000
+      runAsNonRoot: true
+      runAsUser: 1000
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 5
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: kube-api-access-7vpq6
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:50Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:25Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:55Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:55Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:25Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://e78b5610526d02f605eebc5863267ae06773ddc8e16f0c520452dbd2d7746a2c
+      image: gcr.io/google-samples/microservices-demo/currencyservice:v0.8.0
+      imageID: gcr.io/google-samples/microservices-demo/currencyservice@sha256:bd0fa063169b5fab3461c2b21022714bf5c1429b25334e667700a41e5bd2ab30
+      lastState: {}
+      name: server
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-12-21T16:56:49Z"
+    hostIP: 192.168.88.240
+    hostIPs:
+    - ip: 192.168.88.240
+    phase: Running
+    podIP: 192.168.89.187
+    podIPs:
+    - ip: 192.168.89.187
+    qosClass: Burstable
+    startTime: "2024-12-21T16:56:25Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    creationTimestamp: "2024-12-21T16:56:23Z"
+    generateName: emailservice-59b54b49b5-
+    labels:
+      app: emailservice
+      pod-template-hash: 59b54b49b5
+    name: emailservice-59b54b49b5-nvnxr
+    namespace: online-boutique
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: emailservice-59b54b49b5
+      uid: f8156eb8-fa22-43c8-942b-06e2a0ce4d73
+    resourceVersion: "17521"
+    uid: 3dc3403d-8779-4a30-b3ea-3b542037af12
+  spec:
+    containers:
+    - env:
+      - name: PORT
+        value: "8080"
+      - name: DISABLE_PROFILER
+        value: "1"
+      - name: COLLECTOR_SERVICE_ADDR
+        value: tempo-distributor.monitoring:4317
+      - name: ENABLE_STATS
+        value: "1"
+      - name: ENABLE_TRACING
+        value: "1"
+      image: gcr.io/google-samples/microservices-demo/emailservice:v0.8.0
+      imagePullPolicy: IfNotPresent
+      livenessProbe:
+        failureThreshold: 3
+        grpc:
+          port: 8080
+          service: ""
+        periodSeconds: 5
+        successThreshold: 1
+        timeoutSeconds: 1
+      name: server
+      ports:
+      - containerPort: 8080
+        protocol: TCP
+      readinessProbe:
+        failureThreshold: 3
+        grpc:
+          port: 8080
+          service: ""
+        periodSeconds: 5
+        successThreshold: 1
+        timeoutSeconds: 1
+      resources:
+        limits:
+          cpu: 200m
+          memory: 128Mi
+        requests:
+          cpu: 100m
+          memory: 64Mi
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+          - ALL
+        privileged: false
+        readOnlyRootFilesystem: true
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-cgkln
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: ip-192-168-88-240.ap-south-1.compute.internal
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext:
+      fsGroup: 1000
+      runAsGroup: 1000
+      runAsNonRoot: true
+      runAsUser: 1000
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 5
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: kube-api-access-cgkln
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:37Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:23Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:44Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:44Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:23Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://bd44ea40412950dedfe16e4d2b1225a03425f7f8102dc2d539c3998a82eb008c
+      image: gcr.io/google-samples/microservices-demo/emailservice:v0.8.0
+      imageID: gcr.io/google-samples/microservices-demo/emailservice@sha256:53d0416f79e3d4ba8d2092d7c48880375e3398f6e086996aa12b2e68d0a04976
+      lastState: {}
+      name: server
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-12-21T16:56:36Z"
+    hostIP: 192.168.88.240
+    hostIPs:
+    - ip: 192.168.88.240
+    phase: Running
+    podIP: 192.168.81.179
+    podIPs:
+    - ip: 192.168.81.179
+    qosClass: Burstable
+    startTime: "2024-12-21T16:56:23Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      sidecar.istio.io/rewriteAppHTTPProbers: "true"
+    creationTimestamp: "2024-12-21T16:56:24Z"
+    generateName: frontend-6ccd48df76-
+    labels:
+      app.kubernetes.io/name: frontend
+      pod-template-hash: 6ccd48df76
+    name: frontend-6ccd48df76-69qnn
+    namespace: online-boutique
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: frontend-6ccd48df76
+      uid: 61a05a19-afa5-47a2-a1cd-633b35d52f0b
+    resourceVersion: "17597"
+    uid: d3873ee2-1e9c-4d3d-a09e-dd80b9036618
+  spec:
+    containers:
+    - env:
+      - name: PORT
+        value: "8080"
+      - name: PRODUCT_CATALOG_SERVICE_ADDR
+        value: productcatalogservice:3550
+      - name: CURRENCY_SERVICE_ADDR
+        value: currencyservice:7000
+      - name: CART_SERVICE_ADDR
+        value: cartservice:7070
+      - name: RECOMMENDATION_SERVICE_ADDR
+        value: recommendationservice:8080
+      - name: SHIPPING_SERVICE_ADDR
+        value: shippingservice:50051
+      - name: CHECKOUT_SERVICE_ADDR
+        value: checkoutservice:5050
+      - name: AD_SERVICE_ADDR
+        value: adservice:9555
+      - name: COLLECTOR_SERVICE_ADDR
+        value: tempo-distributor.monitoring:4317
+      - name: ENABLE_STATS
+        value: "1"
+      - name: ENABLE_TRACING
+        value: "1"
+      - name: ENV_PLATFORM
+        value: local
+      - name: ENABLE_PROFILER
+        value: "0"
+      image: gcr.io/google-samples/microservices-demo/frontend:v0.8.0
+      imagePullPolicy: IfNotPresent
+      livenessProbe:
+        failureThreshold: 3
+        httpGet:
+          httpHeaders:
+          - name: Cookie
+            value: shop_session-id=x-liveness-probe
+          path: /_healthz
+          port: 8080
+          scheme: HTTP
+        initialDelaySeconds: 10
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 1
+      name: server
+      ports:
+      - containerPort: 8080
+        protocol: TCP
+      readinessProbe:
+        failureThreshold: 3
+        httpGet:
+          httpHeaders:
+          - name: Cookie
+            value: shop_session-id=x-readiness-probe
+          path: /_healthz
+          port: 8080
+          scheme: HTTP
+        initialDelaySeconds: 10
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 1
+      resources:
+        limits:
+          cpu: 200m
+          memory: 128Mi
+        requests:
+          cpu: 100m
+          memory: 64Mi
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+          - ALL
+        privileged: false
+        readOnlyRootFilesystem: true
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-t8v9b
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: ip-192-168-22-2.ap-south-1.compute.internal
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext:
+      fsGroup: 1000
+      runAsGroup: 1000
+      runAsNonRoot: true
+      runAsUser: 1000
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: kube-api-access-t8v9b
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:36Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:24Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:54Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:54Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:24Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://c0165f5f8bea8cab9a29fd975016161f84adc72237599da4858bb80494d5ae75
+      image: gcr.io/google-samples/microservices-demo/frontend:v0.8.0
+      imageID: gcr.io/google-samples/microservices-demo/frontend@sha256:048d9344b759afffd52f4585fb11ee5842f013857eec1136b60973f9ee2fc8f0
+      lastState: {}
+      name: server
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-12-21T16:56:36Z"
+    hostIP: 192.168.22.2
+    hostIPs:
+    - ip: 192.168.22.2
+    phase: Running
+    podIP: 192.168.17.10
+    podIPs:
+    - ip: 192.168.17.10
+    qosClass: Burstable
+    startTime: "2024-12-21T16:56:24Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      sidecar.istio.io/rewriteAppHTTPProbers: "true"
+    creationTimestamp: "2024-12-21T16:56:24Z"
+    generateName: loadgenerator-6674d57474-
+    labels:
+      app: loadgenerator
+      pod-template-hash: 6674d57474
+    name: loadgenerator-6674d57474-hnngl
+    namespace: online-boutique
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: loadgenerator-6674d57474
+      uid: 4beaf4dd-7adc-452d-9e7f-c52989c90396
+    resourceVersion: "17513"
+    uid: 6c1aaa9b-420c-489c-aaf9-5fea0c1ff051
+  spec:
+    containers:
+    - env:
+      - name: FRONTEND_ADDR
+        value: frontend:80
+      - name: USERS
+        value: "10"
+      image: gcr.io/google-samples/microservices-demo/loadgenerator:v0.8.0
+      imagePullPolicy: IfNotPresent
+      name: main
+      resources:
+        limits:
+          cpu: 500m
+          memory: 512Mi
+        requests:
+          cpu: 300m
+          memory: 256Mi
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+          - ALL
+        privileged: false
+        readOnlyRootFilesystem: true
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-bh95w
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    initContainers:
+    - command:
+      - /bin/sh
+      - -exc
+      - |
+        echo "Init container pinging frontend: ${FRONTEND_ADDR}..."
+        STATUSCODE=$(wget --server-response http://${FRONTEND_ADDR} 2>&1 | awk '/^  HTTP/{print $2}')
+        if test $STATUSCODE -ne 200; then
+            echo "Error: Could not reach frontend - Status code: ${STATUSCODE}"
+            exit 1
+        fi
+      env:
+      - name: FRONTEND_ADDR
+        value: frontend:80
+      image: busybox:latest
+      imagePullPolicy: Always
+      name: frontend-check
+      resources: {}
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+          - ALL
+        privileged: false
+        readOnlyRootFilesystem: true
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-bh95w
+        readOnly: true
+    nodeName: ip-192-168-22-2.ap-south-1.compute.internal
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext:
+      fsGroup: 1000
+      runAsGroup: 1000
+      runAsNonRoot: true
+      runAsUser: 1000
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 5
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: kube-api-access-bh95w
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:30Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:30Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:43Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:43Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:25Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://a03420cb8708d3a85b97e10d05859d6b90d15c82853ae023b41d10ec18122a48
+      image: gcr.io/google-samples/microservices-demo/loadgenerator:v0.8.0
+      imageID: gcr.io/google-samples/microservices-demo/loadgenerator@sha256:808cbad6d20592fa9ce8fb296f4f90a8f6f3b6928d61e6c5d1d2b4827c06faa0
+      lastState: {}
+      name: main
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-12-21T16:56:43Z"
+    hostIP: 192.168.22.2
+    hostIPs:
+    - ip: 192.168.22.2
+    initContainerStatuses:
+    - containerID: containerd://616c8bcc88413bb791fe9f57e8bd4050927a98da71086487dceb5845b17186b7
+      image: docker.io/library/busybox:latest
+      imageID: docker.io/library/busybox@sha256:2919d0172f7524b2d8df9e50066a682669e6d170ac0f6a49676d54358fe970b5
+      lastState: {}
+      name: frontend-check
+      ready: true
+      restartCount: 0
+      started: false
+      state:
+        terminated:
+          containerID: containerd://616c8bcc88413bb791fe9f57e8bd4050927a98da71086487dceb5845b17186b7
+          exitCode: 0
+          finishedAt: "2024-12-21T16:56:30Z"
+          reason: Completed
+          startedAt: "2024-12-21T16:56:30Z"
+    phase: Running
+    podIP: 192.168.15.245
+    podIPs:
+    - ip: 192.168.15.245
+    qosClass: Burstable
+    startTime: "2024-12-21T16:56:25Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    creationTimestamp: "2024-12-21T16:56:24Z"
+    generateName: paymentservice-6dc94d9d69-
+    labels:
+      app: paymentservice
+      pod-template-hash: 6dc94d9d69
+    name: paymentservice-6dc94d9d69-lcpph
+    namespace: online-boutique
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: paymentservice-6dc94d9d69
+      uid: 7cdf70e9-16af-4df1-9586-5cbb2c8e36fe
+    resourceVersion: "17602"
+    uid: 02c8129b-ba28-475b-8090-5a04a027b151
+  spec:
+    containers:
+    - env:
+      - name: PORT
+        value: "50051"
+      - name: DISABLE_PROFILER
+        value: "1"
+      - name: COLLECTOR_SERVICE_ADDR
+        value: tempo-distributor.monitoring:4317
+      - name: ENABLE_STATS
+        value: "1"
+      - name: ENABLE_TRACING
+        value: "1"
+      image: gcr.io/google-samples/microservices-demo/paymentservice:v0.8.0
+      imagePullPolicy: IfNotPresent
+      livenessProbe:
+        failureThreshold: 3
+        grpc:
+          port: 50051
+          service: ""
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 1
+      name: server
+      ports:
+      - containerPort: 50051
+        protocol: TCP
+      readinessProbe:
+        failureThreshold: 3
+        grpc:
+          port: 50051
+          service: ""
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 1
+      resources:
+        limits:
+          cpu: 200m
+          memory: 128Mi
+        requests:
+          cpu: 100m
+          memory: 64Mi
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+          - ALL
+        privileged: false
+        readOnlyRootFilesystem: true
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-qjdvm
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: ip-192-168-22-2.ap-south-1.compute.internal
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext:
+      fsGroup: 1000
+      runAsGroup: 1000
+      runAsNonRoot: true
+      runAsUser: 1000
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 5
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: kube-api-access-qjdvm
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:43Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:24Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:54Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:54Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:24Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://033eb8a1cade2bce8f202822f793f957bbbd32173bc9ca65909b2f0cbb4673e1
+      image: gcr.io/google-samples/microservices-demo/paymentservice:v0.8.0
+      imageID: gcr.io/google-samples/microservices-demo/paymentservice@sha256:2bb8061c4c31b3762eb4d9effd64b9a31abbb92b37e44f66a79615bfe5890c22
+      lastState: {}
+      name: server
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-12-21T16:56:43Z"
+    hostIP: 192.168.22.2
+    hostIPs:
+    - ip: 192.168.22.2
+    phase: Running
+    podIP: 192.168.17.128
+    podIPs:
+    - ip: 192.168.17.128
+    qosClass: Burstable
+    startTime: "2024-12-21T16:56:24Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    creationTimestamp: "2024-12-21T16:56:24Z"
+    generateName: productcatalogservice-db7ff8787-
+    labels:
+      app: productcatalogservice
+      pod-template-hash: db7ff8787
+    name: productcatalogservice-db7ff8787-xfgqt
+    namespace: online-boutique
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: productcatalogservice-db7ff8787
+      uid: febd8d5c-aa91-4c22-a0d2-e7954b47ffbf
+    resourceVersion: "17447"
+    uid: 89d37c28-b5b8-4082-8384-cbe0272f7fcd
+  spec:
+    containers:
+    - env:
+      - name: PORT
+        value: "3550"
+      - name: DISABLE_PROFILER
+        value: "1"
+      - name: COLLECTOR_SERVICE_ADDR
+        value: tempo-distributor.monitoring:4317
+      - name: ENABLE_STATS
+        value: "1"
+      - name: ENABLE_TRACING
+        value: "1"
+      image: gcr.io/google-samples/microservices-demo/productcatalogservice:v0.8.0
+      imagePullPolicy: IfNotPresent
+      livenessProbe:
+        failureThreshold: 3
+        grpc:
+          port: 3550
+          service: ""
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 1
+      name: server
+      ports:
+      - containerPort: 3550
+        protocol: TCP
+      readinessProbe:
+        failureThreshold: 3
+        grpc:
+          port: 3550
+          service: ""
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 1
+      resources:
+        limits:
+          cpu: 200m
+          memory: 128Mi
+        requests:
+          cpu: 100m
+          memory: 64Mi
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+          - ALL
+        privileged: false
+        readOnlyRootFilesystem: true
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-hmkrd
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: ip-192-168-88-240.ap-south-1.compute.internal
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext:
+      fsGroup: 1000
+      runAsGroup: 1000
+      runAsNonRoot: true
+      runAsUser: 1000
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 5
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: kube-api-access-hmkrd
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:35Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:24Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:35Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:35Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:24Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://5bc13234db6a7676120d47b61ffe2b84d401763e3420926d8eb335839e95017c
+      image: gcr.io/google-samples/microservices-demo/productcatalogservice:v0.8.0
+      imageID: gcr.io/google-samples/microservices-demo/productcatalogservice@sha256:ff410df246703eccf2cd1da81baeb22d4a715450f2ca8c13d357d6b2c33cffbd
+      lastState: {}
+      name: server
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-12-21T16:56:34Z"
+    hostIP: 192.168.88.240
+    hostIPs:
+    - ip: 192.168.88.240
+    phase: Running
+    podIP: 192.168.88.27
+    podIPs:
+    - ip: 192.168.88.27
+    qosClass: Burstable
+    startTime: "2024-12-21T16:56:24Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    creationTimestamp: "2024-12-21T16:56:24Z"
+    generateName: recommendationservice-74d9896cc9-
+    labels:
+      app: recommendationservice
+      pod-template-hash: 74d9896cc9
+    name: recommendationservice-74d9896cc9-gzbdg
+    namespace: online-boutique
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: recommendationservice-74d9896cc9
+      uid: bdc8bfe3-65f0-4b92-b8eb-02978c222cb9
+    resourceVersion: "17592"
+    uid: 33eb592e-a878-4925-aaae-f1b687d7b51e
+  spec:
+    containers:
+    - env:
+      - name: PORT
+        value: "8080"
+      - name: PRODUCT_CATALOG_SERVICE_ADDR
+        value: productcatalogservice:3550
+      - name: DISABLE_PROFILER
+        value: "1"
+      - name: COLLECTOR_SERVICE_ADDR
+        value: tempo-distributor.monitoring:4317
+      - name: ENABLE_STATS
+        value: "1"
+      - name: ENABLE_TRACING
+        value: "1"
+      image: gcr.io/google-samples/microservices-demo/recommendationservice:v0.8.0
+      imagePullPolicy: IfNotPresent
+      livenessProbe:
+        failureThreshold: 3
+        grpc:
+          port: 8080
+          service: ""
+        periodSeconds: 5
+        successThreshold: 1
+        timeoutSeconds: 1
+      name: server
+      ports:
+      - containerPort: 8080
+        protocol: TCP
+      readinessProbe:
+        failureThreshold: 3
+        grpc:
+          port: 8080
+          service: ""
+        periodSeconds: 5
+        successThreshold: 1
+        timeoutSeconds: 1
+      resources:
+        limits:
+          cpu: 200m
+          memory: 450Mi
+        requests:
+          cpu: 100m
+          memory: 220Mi
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+          - ALL
+        privileged: false
+        readOnlyRootFilesystem: true
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-qxkfb
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: ip-192-168-88-240.ap-south-1.compute.internal
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext:
+      fsGroup: 1000
+      runAsGroup: 1000
+      runAsNonRoot: true
+      runAsUser: 1000
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 5
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: kube-api-access-qxkfb
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:50Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:24Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:54Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:54Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:24Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://b8d159d1ca16befdf8cee326c9784b923c1f22c98f47d5fd8b7ca19ff997fe89
+      image: gcr.io/google-samples/microservices-demo/recommendationservice:v0.8.0
+      imageID: gcr.io/google-samples/microservices-demo/recommendationservice@sha256:f3548c0c199e5eeef1a5f497fedae1592a19d8fa0d8337c351281668637cf477
+      lastState: {}
+      name: server
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-12-21T16:56:49Z"
+    hostIP: 192.168.88.240
+    hostIPs:
+    - ip: 192.168.88.240
+    phase: Running
+    podIP: 192.168.72.119
+    podIPs:
+    - ip: 192.168.72.119
+    qosClass: Burstable
+    startTime: "2024-12-21T16:56:24Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    creationTimestamp: "2024-12-21T16:56:25Z"
+    generateName: redis-cart-b845dc6d9-
+    labels:
+      app: redis-cart
+      pod-template-hash: b845dc6d9
+    name: redis-cart-b845dc6d9-m9d58
+    namespace: online-boutique
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: redis-cart-b845dc6d9
+      uid: ae626743-2a9c-42bf-b7d3-6cdf4f5b7760
+    resourceVersion: "17534"
+    uid: 37bfc297-eb8f-43bf-9325-80d724b9c13a
+  spec:
+    containers:
+    - image: redis:alpine
+      imagePullPolicy: IfNotPresent
+      livenessProbe:
+        failureThreshold: 3
+        periodSeconds: 5
+        successThreshold: 1
+        tcpSocket:
+          port: 6379
+        timeoutSeconds: 1
+      name: redis
+      ports:
+      - containerPort: 6379
+        protocol: TCP
+      readinessProbe:
+        failureThreshold: 3
+        periodSeconds: 5
+        successThreshold: 1
+        tcpSocket:
+          port: 6379
+        timeoutSeconds: 1
+      resources:
+        limits:
+          cpu: 125m
+          memory: 256Mi
+        requests:
+          cpu: 70m
+          memory: 200Mi
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+          - ALL
+        privileged: false
+        readOnlyRootFilesystem: true
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /data
+        name: redis-data
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-gltkv
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: ip-192-168-88-240.ap-south-1.compute.internal
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext:
+      fsGroup: 1000
+      runAsGroup: 1000
+      runAsNonRoot: true
+      runAsUser: 1000
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - emptyDir: {}
+      name: redis-data
+    - name: kube-api-access-gltkv
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:45Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:25Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:45Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:45Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:25Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://9b42effdc3cbc763604beb6be60464027da1384fe992dd33c5428e0bb1f0607a
+      image: docker.io/library/redis:alpine
+      imageID: docker.io/library/redis@sha256:c1e88455c85225310bbea54816e9c3f4b5295815e6dbf80c34d40afc6df28275
+      lastState: {}
+      name: redis
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-12-21T16:56:44Z"
+    hostIP: 192.168.88.240
+    hostIPs:
+    - ip: 192.168.88.240
+    phase: Running
+    podIP: 192.168.92.149
+    podIPs:
+    - ip: 192.168.92.149
+    qosClass: Burstable
+    startTime: "2024-12-21T16:56:25Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    creationTimestamp: "2024-12-21T16:56:25Z"
+    generateName: shippingservice-6d7fdc5cd7-
+    labels:
+      app: shippingservice
+      pod-template-hash: 6d7fdc5cd7
+    name: shippingservice-6d7fdc5cd7-zc2md
+    namespace: online-boutique
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: shippingservice-6d7fdc5cd7
+      uid: 192e57a9-6c15-43bf-bace-0fb719147c49
+    resourceVersion: "17460"
+    uid: 4556b6a1-2c51-482f-bb35-10f756c19ec2
+  spec:
+    containers:
+    - env:
+      - name: PORT
+        value: "50051"
+      - name: DISABLE_PROFILER
+        value: "1"
+      - name: COLLECTOR_SERVICE_ADDR
+        value: tempo-distributor.monitoring:4317
+      - name: ENABLE_STATS
+        value: "1"
+      - name: ENABLE_TRACING
+        value: "1"
+      image: gcr.io/google-samples/microservices-demo/shippingservice:v0.8.0
+      imagePullPolicy: IfNotPresent
+      livenessProbe:
+        failureThreshold: 3
+        grpc:
+          port: 50051
+          service: ""
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 1
+      name: server
+      ports:
+      - containerPort: 50051
+        protocol: TCP
+      readinessProbe:
+        failureThreshold: 3
+        grpc:
+          port: 50051
+          service: ""
+        periodSeconds: 5
+        successThreshold: 1
+        timeoutSeconds: 1
+      resources:
+        limits:
+          cpu: 200m
+          memory: 128Mi
+        requests:
+          cpu: 100m
+          memory: 64Mi
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+          - ALL
+        privileged: false
+        readOnlyRootFilesystem: true
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-2r4qn
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: ip-192-168-22-2.ap-south-1.compute.internal
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext:
+      fsGroup: 1000
+      runAsGroup: 1000
+      runAsNonRoot: true
+      runAsUser: 1000
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: kube-api-access-2r4qn
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:35Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:25Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:35Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:35Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-12-21T16:56:25Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://2b0bf3353d93abcf38ead86930c52d81560fbc40477873ac44e41c62185ebcb8
+      image: gcr.io/google-samples/microservices-demo/shippingservice:v0.8.0
+      imageID: gcr.io/google-samples/microservices-demo/shippingservice@sha256:9fe197811cb01ba7087f8b9160eae6094864d56cd9d79af4d38f2d3d65bc4aac
+      lastState: {}
+      name: server
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2024-12-21T16:56:35Z"
+    hostIP: 192.168.22.2
+    hostIPs:
+    - ip: 192.168.22.2
+    phase: Running
+    podIP: 192.168.31.55
+    podIPs:
+    - ip: 192.168.31.55
+    qosClass: Burstable
+    startTime: "2024-12-21T16:56:25Z"
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"adservice","namespace":"online-boutique"},"spec":{"ports":[{"name":"grpc","port":9555,"targetPort":9555}],"selector":{"app":"adservice"},"type":"ClusterIP"}}
+    creationTimestamp: "2024-12-21T16:56:25Z"
+    name: adservice
+    namespace: online-boutique
+    resourceVersion: "17395"
+    uid: f337da30-5648-48bf-99fa-d847a57d6695
+  spec:
+    clusterIP: 10.100.154.76
+    clusterIPs:
+    - 10.100.154.76
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: grpc
+      port: 9555
+      protocol: TCP
+      targetPort: 9555
+    selector:
+      app: adservice
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"cartservice","namespace":"online-boutique"},"spec":{"ports":[{"name":"grpc","port":7070,"targetPort":7070}],"selector":{"app":"cartservice"},"type":"ClusterIP"}}
+    creationTimestamp: "2024-12-21T16:56:24Z"
+    name: cartservice
+    namespace: online-boutique
+    resourceVersion: "17308"
+    uid: 381b20ee-5c4f-401d-8893-d29c6e884c93
+  spec:
+    clusterIP: 10.100.81.217
+    clusterIPs:
+    - 10.100.81.217
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: grpc
+      port: 7070
+      protocol: TCP
+      targetPort: 7070
+    selector:
+      app: cartservice
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"checkoutservice","namespace":"online-boutique"},"spec":{"ports":[{"name":"grpc","port":5050,"targetPort":5050}],"selector":{"app":"checkoutservice"},"type":"ClusterIP"}}
+    creationTimestamp: "2024-12-21T16:56:23Z"
+    name: checkoutservice
+    namespace: online-boutique
+    resourceVersion: "17222"
+    uid: 66e7956b-a5a4-4ba7-b1dd-3b6fb0dbd9ea
+  spec:
+    clusterIP: 10.100.248.92
+    clusterIPs:
+    - 10.100.248.92
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: grpc
+      port: 5050
+      protocol: TCP
+      targetPort: 5050
+    selector:
+      app: checkoutservice
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"currencyservice","namespace":"online-boutique"},"spec":{"ports":[{"name":"grpc","port":7000,"targetPort":7000}],"selector":{"app":"currencyservice"},"type":"ClusterIP"}}
+    creationTimestamp: "2024-12-21T16:56:25Z"
+    name: currencyservice
+    namespace: online-boutique
+    resourceVersion: "17340"
+    uid: b5409063-dba3-420b-97b9-f82f95091439
+  spec:
+    clusterIP: 10.100.48.45
+    clusterIPs:
+    - 10.100.48.45
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: grpc
+      port: 7000
+      protocol: TCP
+      targetPort: 7000
+    selector:
+      app: currencyservice
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"emailservice","namespace":"online-boutique"},"spec":{"ports":[{"name":"grpc","port":5000,"targetPort":8080}],"selector":{"app":"emailservice"},"type":"ClusterIP"}}
+    creationTimestamp: "2024-12-21T16:56:23Z"
+    name: emailservice
+    namespace: online-boutique
+    resourceVersion: "17202"
+    uid: 34d9cba6-4c5f-4aef-95ba-0cb1475b2898
+  spec:
+    clusterIP: 10.100.187.73
+    clusterIPs:
+    - 10.100.187.73
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: grpc
+      port: 5000
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      app: emailservice
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"frontend-service","namespace":"online-boutique"},"spec":{"ports":[{"port":8080,"protocol":"TCP","targetPort":8080}],"selector":{"app.kubernetes.io/name":"frontend"},"type":"NodePort"}}
+    creationTimestamp: "2024-12-21T16:56:23Z"
+    name: frontend-service
+    namespace: online-boutique
+    resourceVersion: "17186"
+    uid: e703d44f-a5fb-44f6-94f9-dcf1d5bb8c06
+  spec:
+    clusterIP: 10.100.47.186
+    clusterIPs:
+    - 10.100.47.186
+    externalTrafficPolicy: Cluster
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - nodePort: 32663
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      app.kubernetes.io/name: frontend
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"paymentservice","namespace":"online-boutique"},"spec":{"ports":[{"name":"grpc","port":50051,"targetPort":50051}],"selector":{"app":"paymentservice"},"type":"ClusterIP"}}
+    creationTimestamp: "2024-12-21T16:56:24Z"
+    name: paymentservice
+    namespace: online-boutique
+    resourceVersion: "17273"
+    uid: f599ecd1-f20e-4be8-857a-585ef91addca
+  spec:
+    clusterIP: 10.100.40.128
+    clusterIPs:
+    - 10.100.40.128
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: grpc
+      port: 50051
+      protocol: TCP
+      targetPort: 50051
+    selector:
+      app: paymentservice
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"productcatalogservice","namespace":"online-boutique"},"spec":{"ports":[{"name":"grpc","port":3550,"targetPort":3550}],"selector":{"app":"productcatalogservice"},"type":"ClusterIP"}}
+    creationTimestamp: "2024-12-21T16:56:24Z"
+    name: productcatalogservice
+    namespace: online-boutique
+    resourceVersion: "17291"
+    uid: 7cbb486a-4ffd-4289-9f0b-402b4933dd95
+  spec:
+    clusterIP: 10.100.242.134
+    clusterIPs:
+    - 10.100.242.134
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: grpc
+      port: 3550
+      protocol: TCP
+      targetPort: 3550
+    selector:
+      app: productcatalogservice
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"recommendationservice","namespace":"online-boutique"},"spec":{"ports":[{"name":"grpc","port":8080,"targetPort":8080}],"selector":{"app":"recommendationservice"},"type":"ClusterIP"}}
+    creationTimestamp: "2024-12-21T16:56:24Z"
+    name: recommendationservice
+    namespace: online-boutique
+    resourceVersion: "17239"
+    uid: c8fef68f-79ce-4cbf-89f9-025c7ab9b68c
+  spec:
+    clusterIP: 10.100.92.36
+    clusterIPs:
+    - 10.100.92.36
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: grpc
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      app: recommendationservice
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"redis-cart","namespace":"online-boutique"},"spec":{"ports":[{"name":"tcp-redis","port":6379,"targetPort":6379}],"selector":{"app":"redis-cart"},"type":"ClusterIP"}}
+    creationTimestamp: "2024-12-21T16:56:25Z"
+    name: redis-cart
+    namespace: online-boutique
+    resourceVersion: "17377"
+    uid: 53e0252b-cb24-46d1-99ab-80bb6eba5376
+  spec:
+    clusterIP: 10.100.226.136
+    clusterIPs:
+    - 10.100.226.136
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: tcp-redis
+      port: 6379
+      protocol: TCP
+      targetPort: 6379
+    selector:
+      app: redis-cart
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"shippingservice","namespace":"online-boutique"},"spec":{"ports":[{"name":"grpc","port":50051,"targetPort":50051}],"selector":{"app":"shippingservice"},"type":"ClusterIP"}}
+    creationTimestamp: "2024-12-21T16:56:25Z"
+    name: shippingservice
+    namespace: online-boutique
+    resourceVersion: "17358"
+    uid: 799850e3-8bc4-4a48-9e2a-3b7cd8a16d05
+  spec:
+    clusterIP: 10.100.116.113
+    clusterIPs:
+    - 10.100.116.113
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: grpc
+      port: 50051
+      protocol: TCP
+      targetPort: 50051
+    selector:
+      app: shippingservice
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"adservice","namespace":"online-boutique"},"spec":{"selector":{"matchLabels":{"app":"adservice"}},"template":{"metadata":{"labels":{"app":"adservice"},"namespace":"online-boutique"},"spec":{"containers":[{"env":[{"name":"PORT","value":"9555"}],"image":"gcr.io/google-samples/microservices-demo/adservice:v0.8.0","livenessProbe":{"grpc":{"port":9555},"initialDelaySeconds":20,"periodSeconds":15},"name":"server","ports":[{"containerPort":9555}],"readinessProbe":{"grpc":{"port":9555},"initialDelaySeconds":20,"periodSeconds":15},"resources":{"limits":{"cpu":"300m","memory":"300Mi"},"requests":{"cpu":"200m","memory":"180Mi"}},"securityContext":{"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true}}],"securityContext":{"fsGroup":1000,"runAsGroup":1000,"runAsNonRoot":true,"runAsUser":1000},"serviceAccountName":"default","terminationGracePeriodSeconds":5}}}}
+    creationTimestamp: "2024-12-21T16:56:25Z"
+    generation: 1
+    name: adservice
+    namespace: online-boutique
+    resourceVersion: "17757"
+    uid: 60e71a32-39ec-4e34-b35c-33378d9e3269
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: adservice
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: adservice
+        namespace: online-boutique
+      spec:
+        containers:
+        - env:
+          - name: PORT
+            value: "9555"
+          image: gcr.io/google-samples/microservices-demo/adservice:v0.8.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            grpc:
+              port: 9555
+              service: ""
+            initialDelaySeconds: 20
+            periodSeconds: 15
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: server
+          ports:
+          - containerPort: 9555
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            grpc:
+              port: 9555
+              service: ""
+            initialDelaySeconds: 20
+            periodSeconds: 15
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 300m
+              memory: 300Mi
+            requests:
+              cpu: 200m
+              memory: 180Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 1000
+          runAsGroup: 1000
+          runAsNonRoot: true
+          runAsUser: 1000
+        serviceAccount: default
+        serviceAccountName: default
+        terminationGracePeriodSeconds: 5
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2024-12-21T16:57:41Z"
+      lastUpdateTime: "2024-12-21T16:57:41Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2024-12-21T16:56:25Z"
+      lastUpdateTime: "2024-12-21T16:57:41Z"
+      message: ReplicaSet "adservice-5ffbb89896" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"cartservice","namespace":"online-boutique"},"spec":{"selector":{"matchLabels":{"app":"cartservice"}},"template":{"metadata":{"labels":{"app":"cartservice"},"namespace":"online-boutique"},"spec":{"containers":[{"env":[{"name":"REDIS_ADDR","value":"redis-cart:6379"}],"image":"gcr.io/google-samples/microservices-demo/cartservice:v0.8.0","livenessProbe":{"grpc":{"port":7070},"initialDelaySeconds":15,"periodSeconds":10},"name":"server","ports":[{"containerPort":7070}],"readinessProbe":{"grpc":{"port":7070},"initialDelaySeconds":15},"resources":{"limits":{"cpu":"300m","memory":"128Mi"},"requests":{"cpu":"200m","memory":"64Mi"}},"securityContext":{"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true}}],"securityContext":{"fsGroup":1000,"runAsGroup":1000,"runAsNonRoot":true,"runAsUser":1000},"serviceAccountName":"default","terminationGracePeriodSeconds":5}}}}
+    creationTimestamp: "2024-12-21T16:56:24Z"
+    generation: 1
+    name: cartservice
+    namespace: online-boutique
+    resourceVersion: "17680"
+    uid: e085bc00-9812-4d5b-b3b5-e4aa84a52ad6
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: cartservice
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: cartservice
+        namespace: online-boutique
+      spec:
+        containers:
+        - env:
+          - name: REDIS_ADDR
+            value: redis-cart:6379
+          image: gcr.io/google-samples/microservices-demo/cartservice:v0.8.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            grpc:
+              port: 7070
+              service: ""
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: server
+          ports:
+          - containerPort: 7070
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            grpc:
+              port: 7070
+              service: ""
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 300m
+              memory: 128Mi
+            requests:
+              cpu: 200m
+              memory: 64Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 1000
+          runAsGroup: 1000
+          runAsNonRoot: true
+          runAsUser: 1000
+        serviceAccount: default
+        serviceAccountName: default
+        terminationGracePeriodSeconds: 5
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2024-12-21T16:57:15Z"
+      lastUpdateTime: "2024-12-21T16:57:15Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2024-12-21T16:56:24Z"
+      lastUpdateTime: "2024-12-21T16:57:15Z"
+      message: ReplicaSet "cartservice-648c6cf8f9" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"checkoutservice","namespace":"online-boutique"},"spec":{"selector":{"matchLabels":{"app":"checkoutservice"}},"template":{"metadata":{"labels":{"app":"checkoutservice"},"namespace":"online-boutique"},"spec":{"containers":[{"env":[{"name":"PORT","value":"5050"},{"name":"PRODUCT_CATALOG_SERVICE_ADDR","value":"productcatalogservice:3550"},{"name":"SHIPPING_SERVICE_ADDR","value":"shippingservice:50051"},{"name":"PAYMENT_SERVICE_ADDR","value":"paymentservice:50051"},{"name":"EMAIL_SERVICE_ADDR","value":"emailservice:5000"},{"name":"CURRENCY_SERVICE_ADDR","value":"currencyservice:7000"},{"name":"CART_SERVICE_ADDR","value":"cartservice:7070"},{"name":"COLLECTOR_SERVICE_ADDR","value":"tempo-distributor.monitoring:4317"},{"name":"ENABLE_STATS","value":"1"},{"name":"ENABLE_TRACING","value":"1"}],"image":"gcr.io/google-samples/microservices-demo/checkoutservice:v0.8.0","livenessProbe":{"grpc":{"port":5050}},"name":"server","ports":[{"containerPort":5050}],"readinessProbe":{"grpc":{"port":5050}},"resources":{"limits":{"cpu":"200m","memory":"128Mi"},"requests":{"cpu":"100m","memory":"64Mi"}},"securityContext":{"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true}}],"securityContext":{"fsGroup":1000,"runAsGroup":1000,"runAsNonRoot":true,"runAsUser":1000},"serviceAccountName":"default"}}}}
+    creationTimestamp: "2024-12-21T16:56:23Z"
+    generation: 1
+    name: checkoutservice
+    namespace: online-boutique
+    resourceVersion: "17433"
+    uid: 96c044da-59ec-46f3-b47d-ea55f7c633bd
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: checkoutservice
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: checkoutservice
+        namespace: online-boutique
+      spec:
+        containers:
+        - env:
+          - name: PORT
+            value: "5050"
+          - name: PRODUCT_CATALOG_SERVICE_ADDR
+            value: productcatalogservice:3550
+          - name: SHIPPING_SERVICE_ADDR
+            value: shippingservice:50051
+          - name: PAYMENT_SERVICE_ADDR
+            value: paymentservice:50051
+          - name: EMAIL_SERVICE_ADDR
+            value: emailservice:5000
+          - name: CURRENCY_SERVICE_ADDR
+            value: currencyservice:7000
+          - name: CART_SERVICE_ADDR
+            value: cartservice:7070
+          - name: COLLECTOR_SERVICE_ADDR
+            value: tempo-distributor.monitoring:4317
+          - name: ENABLE_STATS
+            value: "1"
+          - name: ENABLE_TRACING
+            value: "1"
+          image: gcr.io/google-samples/microservices-demo/checkoutservice:v0.8.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            grpc:
+              port: 5050
+              service: ""
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: server
+          ports:
+          - containerPort: 5050
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            grpc:
+              port: 5050
+              service: ""
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 200m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 64Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 1000
+          runAsGroup: 1000
+          runAsNonRoot: true
+          runAsUser: 1000
+        serviceAccount: default
+        serviceAccountName: default
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2024-12-21T16:56:33Z"
+      lastUpdateTime: "2024-12-21T16:56:33Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2024-12-21T16:56:23Z"
+      lastUpdateTime: "2024-12-21T16:56:33Z"
+      message: ReplicaSet "checkoutservice-c45478579" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"currencyservice","namespace":"online-boutique"},"spec":{"selector":{"matchLabels":{"app":"currencyservice"}},"template":{"metadata":{"labels":{"app":"currencyservice"},"namespace":"online-boutique"},"spec":{"containers":[{"env":[{"name":"PORT","value":"7000"},{"name":"DISABLE_PROFILER","value":"1"},{"name":"COLLECTOR_SERVICE_ADDR","value":"tempo-distributor.monitoring:4317"},{"name":"ENABLE_STATS","value":"1"},{"name":"ENABLE_TRACING","value":"1"}],"image":"gcr.io/google-samples/microservices-demo/currencyservice:v0.8.0","livenessProbe":{"grpc":{"port":7000}},"name":"server","ports":[{"containerPort":7000,"name":"grpc"}],"readinessProbe":{"grpc":{"port":7000}},"resources":{"limits":{"cpu":"200m","memory":"128Mi"},"requests":{"cpu":"100m","memory":"64Mi"}},"securityContext":{"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true}}],"securityContext":{"fsGroup":1000,"runAsGroup":1000,"runAsNonRoot":true,"runAsUser":1000},"serviceAccountName":"default","terminationGracePeriodSeconds":5}}}}
+    creationTimestamp: "2024-12-21T16:56:25Z"
+    generation: 1
+    name: currencyservice
+    namespace: online-boutique
+    resourceVersion: "17613"
+    uid: e7c0ec46-a51f-4559-930d-5a76dbf1c11a
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: currencyservice
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: currencyservice
+        namespace: online-boutique
+      spec:
+        containers:
+        - env:
+          - name: PORT
+            value: "7000"
+          - name: DISABLE_PROFILER
+            value: "1"
+          - name: COLLECTOR_SERVICE_ADDR
+            value: tempo-distributor.monitoring:4317
+          - name: ENABLE_STATS
+            value: "1"
+          - name: ENABLE_TRACING
+            value: "1"
+          image: gcr.io/google-samples/microservices-demo/currencyservice:v0.8.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            grpc:
+              port: 7000
+              service: ""
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: server
+          ports:
+          - containerPort: 7000
+            name: grpc
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            grpc:
+              port: 7000
+              service: ""
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 200m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 64Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 1000
+          runAsGroup: 1000
+          runAsNonRoot: true
+          runAsUser: 1000
+        serviceAccount: default
+        serviceAccountName: default
+        terminationGracePeriodSeconds: 5
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2024-12-21T16:56:55Z"
+      lastUpdateTime: "2024-12-21T16:56:55Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2024-12-21T16:56:25Z"
+      lastUpdateTime: "2024-12-21T16:56:55Z"
+      message: ReplicaSet "currencyservice-5f494866cf" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"emailservice","namespace":"online-boutique"},"spec":{"selector":{"matchLabels":{"app":"emailservice"}},"template":{"metadata":{"labels":{"app":"emailservice"},"namespace":"online-boutique"},"spec":{"containers":[{"env":[{"name":"PORT","value":"8080"},{"name":"DISABLE_PROFILER","value":"1"},{"name":"COLLECTOR_SERVICE_ADDR","value":"tempo-distributor.monitoring:4317"},{"name":"ENABLE_STATS","value":"1"},{"name":"ENABLE_TRACING","value":"1"}],"image":"gcr.io/google-samples/microservices-demo/emailservice:v0.8.0","livenessProbe":{"grpc":{"port":8080},"periodSeconds":5},"name":"server","ports":[{"containerPort":8080}],"readinessProbe":{"grpc":{"port":8080},"periodSeconds":5},"resources":{"limits":{"cpu":"200m","memory":"128Mi"},"requests":{"cpu":"100m","memory":"64Mi"}},"securityContext":{"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true}}],"securityContext":{"fsGroup":1000,"runAsGroup":1000,"runAsNonRoot":true,"runAsUser":1000},"serviceAccountName":"default","terminationGracePeriodSeconds":5}}}}
+    creationTimestamp: "2024-12-21T16:56:23Z"
+    generation: 1
+    name: emailservice
+    namespace: online-boutique
+    resourceVersion: "17526"
+    uid: 6ebe3f59-9ddd-49ae-8233-2d64e221ea33
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: emailservice
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: emailservice
+        namespace: online-boutique
+      spec:
+        containers:
+        - env:
+          - name: PORT
+            value: "8080"
+          - name: DISABLE_PROFILER
+            value: "1"
+          - name: COLLECTOR_SERVICE_ADDR
+            value: tempo-distributor.monitoring:4317
+          - name: ENABLE_STATS
+            value: "1"
+          - name: ENABLE_TRACING
+            value: "1"
+          image: gcr.io/google-samples/microservices-demo/emailservice:v0.8.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            grpc:
+              port: 8080
+              service: ""
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: server
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            grpc:
+              port: 8080
+              service: ""
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 200m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 64Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 1000
+          runAsGroup: 1000
+          runAsNonRoot: true
+          runAsUser: 1000
+        serviceAccount: default
+        serviceAccountName: default
+        terminationGracePeriodSeconds: 5
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2024-12-21T16:56:44Z"
+      lastUpdateTime: "2024-12-21T16:56:44Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2024-12-21T16:56:23Z"
+      lastUpdateTime: "2024-12-21T16:56:44Z"
+      message: ReplicaSet "emailservice-59b54b49b5" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"frontend","namespace":"online-boutique"},"spec":{"selector":{"matchLabels":{"app.kubernetes.io/name":"frontend"}},"template":{"metadata":{"annotations":{"sidecar.istio.io/rewriteAppHTTPProbers":"true"},"labels":{"app.kubernetes.io/name":"frontend"},"namespace":"online-boutique"},"spec":{"containers":[{"env":[{"name":"PORT","value":"8080"},{"name":"PRODUCT_CATALOG_SERVICE_ADDR","value":"productcatalogservice:3550"},{"name":"CURRENCY_SERVICE_ADDR","value":"currencyservice:7000"},{"name":"CART_SERVICE_ADDR","value":"cartservice:7070"},{"name":"RECOMMENDATION_SERVICE_ADDR","value":"recommendationservice:8080"},{"name":"SHIPPING_SERVICE_ADDR","value":"shippingservice:50051"},{"name":"CHECKOUT_SERVICE_ADDR","value":"checkoutservice:5050"},{"name":"AD_SERVICE_ADDR","value":"adservice:9555"},{"name":"COLLECTOR_SERVICE_ADDR","value":"tempo-distributor.monitoring:4317"},{"name":"ENABLE_STATS","value":"1"},{"name":"ENABLE_TRACING","value":"1"},{"name":"ENV_PLATFORM","value":"local"},{"name":"ENABLE_PROFILER","value":"0"}],"image":"gcr.io/google-samples/microservices-demo/frontend:v0.8.0","livenessProbe":{"httpGet":{"httpHeaders":[{"name":"Cookie","value":"shop_session-id=x-liveness-probe"}],"path":"/_healthz","port":8080},"initialDelaySeconds":10},"name":"server","ports":[{"containerPort":8080}],"readinessProbe":{"httpGet":{"httpHeaders":[{"name":"Cookie","value":"shop_session-id=x-readiness-probe"}],"path":"/_healthz","port":8080},"initialDelaySeconds":10},"resources":{"limits":{"cpu":"200m","memory":"128Mi"},"requests":{"cpu":"100m","memory":"64Mi"}},"securityContext":{"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true}}],"securityContext":{"fsGroup":1000,"runAsGroup":1000,"runAsNonRoot":true,"runAsUser":1000},"serviceAccountName":"default"}}}}
+    creationTimestamp: "2024-12-21T16:56:24Z"
+    generation: 1
+    name: frontend
+    namespace: online-boutique
+    resourceVersion: "17601"
+    uid: 77a6cd0b-fd10-43e9-9e84-1069e2ae6bc0
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app.kubernetes.io/name: frontend
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          sidecar.istio.io/rewriteAppHTTPProbers: "true"
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/name: frontend
+        namespace: online-boutique
+      spec:
+        containers:
+        - env:
+          - name: PORT
+            value: "8080"
+          - name: PRODUCT_CATALOG_SERVICE_ADDR
+            value: productcatalogservice:3550
+          - name: CURRENCY_SERVICE_ADDR
+            value: currencyservice:7000
+          - name: CART_SERVICE_ADDR
+            value: cartservice:7070
+          - name: RECOMMENDATION_SERVICE_ADDR
+            value: recommendationservice:8080
+          - name: SHIPPING_SERVICE_ADDR
+            value: shippingservice:50051
+          - name: CHECKOUT_SERVICE_ADDR
+            value: checkoutservice:5050
+          - name: AD_SERVICE_ADDR
+            value: adservice:9555
+          - name: COLLECTOR_SERVICE_ADDR
+            value: tempo-distributor.monitoring:4317
+          - name: ENABLE_STATS
+            value: "1"
+          - name: ENABLE_TRACING
+            value: "1"
+          - name: ENV_PLATFORM
+            value: local
+          - name: ENABLE_PROFILER
+            value: "0"
+          image: gcr.io/google-samples/microservices-demo/frontend:v0.8.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              httpHeaders:
+              - name: Cookie
+                value: shop_session-id=x-liveness-probe
+              path: /_healthz
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: server
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              httpHeaders:
+              - name: Cookie
+                value: shop_session-id=x-readiness-probe
+              path: /_healthz
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 200m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 64Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 1000
+          runAsGroup: 1000
+          runAsNonRoot: true
+          runAsUser: 1000
+        serviceAccount: default
+        serviceAccountName: default
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2024-12-21T16:56:54Z"
+      lastUpdateTime: "2024-12-21T16:56:54Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2024-12-21T16:56:24Z"
+      lastUpdateTime: "2024-12-21T16:56:54Z"
+      message: ReplicaSet "frontend-6ccd48df76" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"loadgenerator","namespace":"online-boutique"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"loadgenerator"}},"template":{"metadata":{"annotations":{"sidecar.istio.io/rewriteAppHTTPProbers":"true"},"labels":{"app":"loadgenerator"},"namespace":"online-boutique"},"spec":{"containers":[{"env":[{"name":"FRONTEND_ADDR","value":"frontend:80"},{"name":"USERS","value":"10"}],"image":"gcr.io/google-samples/microservices-demo/loadgenerator:v0.8.0","name":"main","resources":{"limits":{"cpu":"500m","memory":"512Mi"},"requests":{"cpu":"300m","memory":"256Mi"}},"securityContext":{"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true}}],"initContainers":[{"command":["/bin/sh","-exc","echo \"Init container pinging frontend: ${FRONTEND_ADDR}...\"\nSTATUSCODE=$(wget --server-response http://${FRONTEND_ADDR} 2\u003e\u00261 | awk '/^  HTTP/{print $2}')\nif test $STATUSCODE -ne 200; then\n    echo \"Error: Could not reach frontend - Status code: ${STATUSCODE}\"\n    exit 1\nfi\n"],"env":[{"name":"FRONTEND_ADDR","value":"frontend:80"}],"image":"busybox:latest","name":"frontend-check","securityContext":{"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true}}],"restartPolicy":"Always","securityContext":{"fsGroup":1000,"runAsGroup":1000,"runAsNonRoot":true,"runAsUser":1000},"serviceAccountName":"default","terminationGracePeriodSeconds":5}}}}
+    creationTimestamp: "2024-12-21T16:56:24Z"
+    generation: 1
+    name: loadgenerator
+    namespace: online-boutique
+    resourceVersion: "17519"
+    uid: 05d52903-2f7d-4533-812e-e20dd1e044a2
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: loadgenerator
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          sidecar.istio.io/rewriteAppHTTPProbers: "true"
+        creationTimestamp: null
+        labels:
+          app: loadgenerator
+        namespace: online-boutique
+      spec:
+        containers:
+        - env:
+          - name: FRONTEND_ADDR
+            value: frontend:80
+          - name: USERS
+            value: "10"
+          image: gcr.io/google-samples/microservices-demo/loadgenerator:v0.8.0
+          imagePullPolicy: IfNotPresent
+          name: main
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 300m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        initContainers:
+        - command:
+          - /bin/sh
+          - -exc
+          - |
+            echo "Init container pinging frontend: ${FRONTEND_ADDR}..."
+            STATUSCODE=$(wget --server-response http://${FRONTEND_ADDR} 2>&1 | awk '/^  HTTP/{print $2}')
+            if test $STATUSCODE -ne 200; then
+                echo "Error: Could not reach frontend - Status code: ${STATUSCODE}"
+                exit 1
+            fi
+          env:
+          - name: FRONTEND_ADDR
+            value: frontend:80
+          image: busybox:latest
+          imagePullPolicy: Always
+          name: frontend-check
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 1000
+          runAsGroup: 1000
+          runAsNonRoot: true
+          runAsUser: 1000
+        serviceAccount: default
+        serviceAccountName: default
+        terminationGracePeriodSeconds: 5
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2024-12-21T16:56:43Z"
+      lastUpdateTime: "2024-12-21T16:56:43Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2024-12-21T16:56:24Z"
+      lastUpdateTime: "2024-12-21T16:56:43Z"
+      message: ReplicaSet "loadgenerator-6674d57474" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"paymentservice","namespace":"online-boutique"},"spec":{"selector":{"matchLabels":{"app":"paymentservice"}},"template":{"metadata":{"labels":{"app":"paymentservice"},"namespace":"online-boutique"},"spec":{"containers":[{"env":[{"name":"PORT","value":"50051"},{"name":"DISABLE_PROFILER","value":"1"},{"name":"COLLECTOR_SERVICE_ADDR","value":"tempo-distributor.monitoring:4317"},{"name":"ENABLE_STATS","value":"1"},{"name":"ENABLE_TRACING","value":"1"}],"image":"gcr.io/google-samples/microservices-demo/paymentservice:v0.8.0","livenessProbe":{"grpc":{"port":50051}},"name":"server","ports":[{"containerPort":50051}],"readinessProbe":{"grpc":{"port":50051}},"resources":{"limits":{"cpu":"200m","memory":"128Mi"},"requests":{"cpu":"100m","memory":"64Mi"}},"securityContext":{"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true}}],"securityContext":{"fsGroup":1000,"runAsGroup":1000,"runAsNonRoot":true,"runAsUser":1000},"serviceAccountName":"default","terminationGracePeriodSeconds":5}}}}
+    creationTimestamp: "2024-12-21T16:56:24Z"
+    generation: 1
+    name: paymentservice
+    namespace: online-boutique
+    resourceVersion: "17606"
+    uid: 1d8a9158-f7ce-45d8-be8a-5b3350ece2c2
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: paymentservice
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: paymentservice
+        namespace: online-boutique
+      spec:
+        containers:
+        - env:
+          - name: PORT
+            value: "50051"
+          - name: DISABLE_PROFILER
+            value: "1"
+          - name: COLLECTOR_SERVICE_ADDR
+            value: tempo-distributor.monitoring:4317
+          - name: ENABLE_STATS
+            value: "1"
+          - name: ENABLE_TRACING
+            value: "1"
+          image: gcr.io/google-samples/microservices-demo/paymentservice:v0.8.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            grpc:
+              port: 50051
+              service: ""
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: server
+          ports:
+          - containerPort: 50051
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            grpc:
+              port: 50051
+              service: ""
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 200m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 64Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 1000
+          runAsGroup: 1000
+          runAsNonRoot: true
+          runAsUser: 1000
+        serviceAccount: default
+        serviceAccountName: default
+        terminationGracePeriodSeconds: 5
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2024-12-21T16:56:54Z"
+      lastUpdateTime: "2024-12-21T16:56:54Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2024-12-21T16:56:24Z"
+      lastUpdateTime: "2024-12-21T16:56:54Z"
+      message: ReplicaSet "paymentservice-6dc94d9d69" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"productcatalogservice","namespace":"online-boutique"},"spec":{"selector":{"matchLabels":{"app":"productcatalogservice"}},"template":{"metadata":{"labels":{"app":"productcatalogservice"},"namespace":"online-boutique"},"spec":{"containers":[{"env":[{"name":"PORT","value":"3550"},{"name":"DISABLE_PROFILER","value":"1"},{"name":"COLLECTOR_SERVICE_ADDR","value":"tempo-distributor.monitoring:4317"},{"name":"ENABLE_STATS","value":"1"},{"name":"ENABLE_TRACING","value":"1"}],"image":"gcr.io/google-samples/microservices-demo/productcatalogservice:v0.8.0","livenessProbe":{"grpc":{"port":3550}},"name":"server","ports":[{"containerPort":3550}],"readinessProbe":{"grpc":{"port":3550}},"resources":{"limits":{"cpu":"200m","memory":"128Mi"},"requests":{"cpu":"100m","memory":"64Mi"}},"securityContext":{"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true}}],"securityContext":{"fsGroup":1000,"runAsGroup":1000,"runAsNonRoot":true,"runAsUser":1000},"serviceAccountName":"default","terminationGracePeriodSeconds":5}}}}
+    creationTimestamp: "2024-12-21T16:56:24Z"
+    generation: 1
+    name: productcatalogservice
+    namespace: online-boutique
+    resourceVersion: "17451"
+    uid: e0750150-ac61-4d37-8ff6-2d061e64972a
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: productcatalogservice
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: productcatalogservice
+        namespace: online-boutique
+      spec:
+        containers:
+        - env:
+          - name: PORT
+            value: "3550"
+          - name: DISABLE_PROFILER
+            value: "1"
+          - name: COLLECTOR_SERVICE_ADDR
+            value: tempo-distributor.monitoring:4317
+          - name: ENABLE_STATS
+            value: "1"
+          - name: ENABLE_TRACING
+            value: "1"
+          image: gcr.io/google-samples/microservices-demo/productcatalogservice:v0.8.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            grpc:
+              port: 3550
+              service: ""
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: server
+          ports:
+          - containerPort: 3550
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            grpc:
+              port: 3550
+              service: ""
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 200m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 64Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 1000
+          runAsGroup: 1000
+          runAsNonRoot: true
+          runAsUser: 1000
+        serviceAccount: default
+        serviceAccountName: default
+        terminationGracePeriodSeconds: 5
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2024-12-21T16:56:35Z"
+      lastUpdateTime: "2024-12-21T16:56:35Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2024-12-21T16:56:24Z"
+      lastUpdateTime: "2024-12-21T16:56:35Z"
+      message: ReplicaSet "productcatalogservice-db7ff8787" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"recommendationservice","namespace":"online-boutique"},"spec":{"selector":{"matchLabels":{"app":"recommendationservice"}},"template":{"metadata":{"labels":{"app":"recommendationservice"},"namespace":"online-boutique"},"spec":{"containers":[{"env":[{"name":"PORT","value":"8080"},{"name":"PRODUCT_CATALOG_SERVICE_ADDR","value":"productcatalogservice:3550"},{"name":"DISABLE_PROFILER","value":"1"},{"name":"COLLECTOR_SERVICE_ADDR","value":"tempo-distributor.monitoring:4317"},{"name":"ENABLE_STATS","value":"1"},{"name":"ENABLE_TRACING","value":"1"}],"image":"gcr.io/google-samples/microservices-demo/recommendationservice:v0.8.0","livenessProbe":{"grpc":{"port":8080},"periodSeconds":5},"name":"server","ports":[{"containerPort":8080}],"readinessProbe":{"grpc":{"port":8080},"periodSeconds":5},"resources":{"limits":{"cpu":"200m","memory":"450Mi"},"requests":{"cpu":"100m","memory":"220Mi"}},"securityContext":{"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true}}],"securityContext":{"fsGroup":1000,"runAsGroup":1000,"runAsNonRoot":true,"runAsUser":1000},"serviceAccountName":"default","terminationGracePeriodSeconds":5}}}}
+    creationTimestamp: "2024-12-21T16:56:24Z"
+    generation: 1
+    name: recommendationservice
+    namespace: online-boutique
+    resourceVersion: "17596"
+    uid: 469fd54e-b951-4d2d-a1c9-e7ae3dae6ecf
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: recommendationservice
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: recommendationservice
+        namespace: online-boutique
+      spec:
+        containers:
+        - env:
+          - name: PORT
+            value: "8080"
+          - name: PRODUCT_CATALOG_SERVICE_ADDR
+            value: productcatalogservice:3550
+          - name: DISABLE_PROFILER
+            value: "1"
+          - name: COLLECTOR_SERVICE_ADDR
+            value: tempo-distributor.monitoring:4317
+          - name: ENABLE_STATS
+            value: "1"
+          - name: ENABLE_TRACING
+            value: "1"
+          image: gcr.io/google-samples/microservices-demo/recommendationservice:v0.8.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            grpc:
+              port: 8080
+              service: ""
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: server
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            grpc:
+              port: 8080
+              service: ""
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 200m
+              memory: 450Mi
+            requests:
+              cpu: 100m
+              memory: 220Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 1000
+          runAsGroup: 1000
+          runAsNonRoot: true
+          runAsUser: 1000
+        serviceAccount: default
+        serviceAccountName: default
+        terminationGracePeriodSeconds: 5
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2024-12-21T16:56:54Z"
+      lastUpdateTime: "2024-12-21T16:56:54Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2024-12-21T16:56:24Z"
+      lastUpdateTime: "2024-12-21T16:56:54Z"
+      message: ReplicaSet "recommendationservice-74d9896cc9" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"redis-cart","namespace":"online-boutique"},"spec":{"selector":{"matchLabels":{"app":"redis-cart"}},"template":{"metadata":{"labels":{"app":"redis-cart"},"namespace":"online-boutique"},"spec":{"containers":[{"image":"redis:alpine","livenessProbe":{"periodSeconds":5,"tcpSocket":{"port":6379}},"name":"redis","ports":[{"containerPort":6379}],"readinessProbe":{"periodSeconds":5,"tcpSocket":{"port":6379}},"resources":{"limits":{"cpu":"125m","memory":"256Mi"},"requests":{"cpu":"70m","memory":"200Mi"}},"securityContext":{"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true},"volumeMounts":[{"mountPath":"/data","name":"redis-data"}]}],"securityContext":{"fsGroup":1000,"runAsGroup":1000,"runAsNonRoot":true,"runAsUser":1000},"volumes":[{"emptyDir":{},"name":"redis-data"}]}}}}
+    creationTimestamp: "2024-12-21T16:56:25Z"
+    generation: 1
+    name: redis-cart
+    namespace: online-boutique
+    resourceVersion: "17538"
+    uid: 831d4cce-80f5-4925-adf3-1eb81c468f3e
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: redis-cart
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: redis-cart
+        namespace: online-boutique
+      spec:
+        containers:
+        - image: redis:alpine
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            periodSeconds: 5
+            successThreshold: 1
+            tcpSocket:
+              port: 6379
+            timeoutSeconds: 1
+          name: redis
+          ports:
+          - containerPort: 6379
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            periodSeconds: 5
+            successThreshold: 1
+            tcpSocket:
+              port: 6379
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 125m
+              memory: 256Mi
+            requests:
+              cpu: 70m
+              memory: 200Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /data
+            name: redis-data
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 1000
+          runAsGroup: 1000
+          runAsNonRoot: true
+          runAsUser: 1000
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - emptyDir: {}
+          name: redis-data
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2024-12-21T16:56:45Z"
+      lastUpdateTime: "2024-12-21T16:56:45Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2024-12-21T16:56:25Z"
+      lastUpdateTime: "2024-12-21T16:56:45Z"
+      message: ReplicaSet "redis-cart-b845dc6d9" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"shippingservice","namespace":"online-boutique"},"spec":{"selector":{"matchLabels":{"app":"shippingservice"}},"template":{"metadata":{"labels":{"app":"shippingservice"},"namespace":"online-boutique"},"spec":{"containers":[{"env":[{"name":"PORT","value":"50051"},{"name":"DISABLE_PROFILER","value":"1"},{"name":"COLLECTOR_SERVICE_ADDR","value":"tempo-distributor.monitoring:4317"},{"name":"ENABLE_STATS","value":"1"},{"name":"ENABLE_TRACING","value":"1"}],"image":"gcr.io/google-samples/microservices-demo/shippingservice:v0.8.0","livenessProbe":{"grpc":{"port":50051}},"name":"server","ports":[{"containerPort":50051}],"readinessProbe":{"grpc":{"port":50051},"periodSeconds":5},"resources":{"limits":{"cpu":"200m","memory":"128Mi"},"requests":{"cpu":"100m","memory":"64Mi"}},"securityContext":{"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"privileged":false,"readOnlyRootFilesystem":true}}],"securityContext":{"fsGroup":1000,"runAsGroup":1000,"runAsNonRoot":true,"runAsUser":1000},"serviceAccountName":"default"}}}}
+    creationTimestamp: "2024-12-21T16:56:25Z"
+    generation: 1
+    name: shippingservice
+    namespace: online-boutique
+    resourceVersion: "17464"
+    uid: b735cd0c-c003-4fb5-acc7-706522e93728
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: shippingservice
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: shippingservice
+        namespace: online-boutique
+      spec:
+        containers:
+        - env:
+          - name: PORT
+            value: "50051"
+          - name: DISABLE_PROFILER
+            value: "1"
+          - name: COLLECTOR_SERVICE_ADDR
+            value: tempo-distributor.monitoring:4317
+          - name: ENABLE_STATS
+            value: "1"
+          - name: ENABLE_TRACING
+            value: "1"
+          image: gcr.io/google-samples/microservices-demo/shippingservice:v0.8.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            grpc:
+              port: 50051
+              service: ""
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: server
+          ports:
+          - containerPort: 50051
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            grpc:
+              port: 50051
+              service: ""
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 200m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 64Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 1000
+          runAsGroup: 1000
+          runAsNonRoot: true
+          runAsUser: 1000
+        serviceAccount: default
+        serviceAccountName: default
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2024-12-21T16:56:35Z"
+      lastUpdateTime: "2024-12-21T16:56:35Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2024-12-21T16:56:25Z"
+      lastUpdateTime: "2024-12-21T16:56:35Z"
+      message: ReplicaSet "shippingservice-6d7fdc5cd7" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2024-12-21T16:56:25Z"
+    generation: 1
+    labels:
+      app: adservice
+      pod-template-hash: 5ffbb89896
+    name: adservice-5ffbb89896
+    namespace: online-boutique
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: adservice
+      uid: 60e71a32-39ec-4e34-b35c-33378d9e3269
+    resourceVersion: "17755"
+    uid: 5407f7ae-09eb-4e7f-a02f-1cb84e962c1b
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: adservice
+        pod-template-hash: 5ffbb89896
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: adservice
+          pod-template-hash: 5ffbb89896
+        namespace: online-boutique
+      spec:
+        containers:
+        - env:
+          - name: PORT
+            value: "9555"
+          image: gcr.io/google-samples/microservices-demo/adservice:v0.8.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            grpc:
+              port: 9555
+              service: ""
+            initialDelaySeconds: 20
+            periodSeconds: 15
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: server
+          ports:
+          - containerPort: 9555
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            grpc:
+              port: 9555
+              service: ""
+            initialDelaySeconds: 20
+            periodSeconds: 15
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 300m
+              memory: 300Mi
+            requests:
+              cpu: 200m
+              memory: 180Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 1000
+          runAsGroup: 1000
+          runAsNonRoot: true
+          runAsUser: 1000
+        serviceAccount: default
+        serviceAccountName: default
+        terminationGracePeriodSeconds: 5
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2024-12-21T16:56:24Z"
+    generation: 1
+    labels:
+      app: cartservice
+      pod-template-hash: 648c6cf8f9
+    name: cartservice-648c6cf8f9
+    namespace: online-boutique
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: cartservice
+      uid: e085bc00-9812-4d5b-b3b5-e4aa84a52ad6
+    resourceVersion: "17677"
+    uid: 10b45757-82ae-4e34-8adc-cfd4fe4aa8bc
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: cartservice
+        pod-template-hash: 648c6cf8f9
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: cartservice
+          pod-template-hash: 648c6cf8f9
+        namespace: online-boutique
+      spec:
+        containers:
+        - env:
+          - name: REDIS_ADDR
+            value: redis-cart:6379
+          image: gcr.io/google-samples/microservices-demo/cartservice:v0.8.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            grpc:
+              port: 7070
+              service: ""
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: server
+          ports:
+          - containerPort: 7070
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            grpc:
+              port: 7070
+              service: ""
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 300m
+              memory: 128Mi
+            requests:
+              cpu: 200m
+              memory: 64Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 1000
+          runAsGroup: 1000
+          runAsNonRoot: true
+          runAsUser: 1000
+        serviceAccount: default
+        serviceAccountName: default
+        terminationGracePeriodSeconds: 5
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2024-12-21T16:56:23Z"
+    generation: 1
+    labels:
+      app: checkoutservice
+      pod-template-hash: c45478579
+    name: checkoutservice-c45478579
+    namespace: online-boutique
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: checkoutservice
+      uid: 96c044da-59ec-46f3-b47d-ea55f7c633bd
+    resourceVersion: "17432"
+    uid: 8b0bffa7-992f-4b48-b134-f5d3c66c18be
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: checkoutservice
+        pod-template-hash: c45478579
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: checkoutservice
+          pod-template-hash: c45478579
+        namespace: online-boutique
+      spec:
+        containers:
+        - env:
+          - name: PORT
+            value: "5050"
+          - name: PRODUCT_CATALOG_SERVICE_ADDR
+            value: productcatalogservice:3550
+          - name: SHIPPING_SERVICE_ADDR
+            value: shippingservice:50051
+          - name: PAYMENT_SERVICE_ADDR
+            value: paymentservice:50051
+          - name: EMAIL_SERVICE_ADDR
+            value: emailservice:5000
+          - name: CURRENCY_SERVICE_ADDR
+            value: currencyservice:7000
+          - name: CART_SERVICE_ADDR
+            value: cartservice:7070
+          - name: COLLECTOR_SERVICE_ADDR
+            value: tempo-distributor.monitoring:4317
+          - name: ENABLE_STATS
+            value: "1"
+          - name: ENABLE_TRACING
+            value: "1"
+          image: gcr.io/google-samples/microservices-demo/checkoutservice:v0.8.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            grpc:
+              port: 5050
+              service: ""
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: server
+          ports:
+          - containerPort: 5050
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            grpc:
+              port: 5050
+              service: ""
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 200m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 64Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 1000
+          runAsGroup: 1000
+          runAsNonRoot: true
+          runAsUser: 1000
+        serviceAccount: default
+        serviceAccountName: default
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2024-12-21T16:56:25Z"
+    generation: 1
+    labels:
+      app: currencyservice
+      pod-template-hash: 5f494866cf
+    name: currencyservice-5f494866cf
+    namespace: online-boutique
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: currencyservice
+      uid: e7c0ec46-a51f-4559-930d-5a76dbf1c11a
+    resourceVersion: "17612"
+    uid: 8835d450-67d3-4393-a981-b94e9c96d325
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: currencyservice
+        pod-template-hash: 5f494866cf
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: currencyservice
+          pod-template-hash: 5f494866cf
+        namespace: online-boutique
+      spec:
+        containers:
+        - env:
+          - name: PORT
+            value: "7000"
+          - name: DISABLE_PROFILER
+            value: "1"
+          - name: COLLECTOR_SERVICE_ADDR
+            value: tempo-distributor.monitoring:4317
+          - name: ENABLE_STATS
+            value: "1"
+          - name: ENABLE_TRACING
+            value: "1"
+          image: gcr.io/google-samples/microservices-demo/currencyservice:v0.8.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            grpc:
+              port: 7000
+              service: ""
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: server
+          ports:
+          - containerPort: 7000
+            name: grpc
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            grpc:
+              port: 7000
+              service: ""
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 200m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 64Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 1000
+          runAsGroup: 1000
+          runAsNonRoot: true
+          runAsUser: 1000
+        serviceAccount: default
+        serviceAccountName: default
+        terminationGracePeriodSeconds: 5
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2024-12-21T16:56:23Z"
+    generation: 1
+    labels:
+      app: emailservice
+      pod-template-hash: 59b54b49b5
+    name: emailservice-59b54b49b5
+    namespace: online-boutique
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: emailservice
+      uid: 6ebe3f59-9ddd-49ae-8233-2d64e221ea33
+    resourceVersion: "17525"
+    uid: f8156eb8-fa22-43c8-942b-06e2a0ce4d73
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: emailservice
+        pod-template-hash: 59b54b49b5
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: emailservice
+          pod-template-hash: 59b54b49b5
+        namespace: online-boutique
+      spec:
+        containers:
+        - env:
+          - name: PORT
+            value: "8080"
+          - name: DISABLE_PROFILER
+            value: "1"
+          - name: COLLECTOR_SERVICE_ADDR
+            value: tempo-distributor.monitoring:4317
+          - name: ENABLE_STATS
+            value: "1"
+          - name: ENABLE_TRACING
+            value: "1"
+          image: gcr.io/google-samples/microservices-demo/emailservice:v0.8.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            grpc:
+              port: 8080
+              service: ""
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: server
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            grpc:
+              port: 8080
+              service: ""
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 200m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 64Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 1000
+          runAsGroup: 1000
+          runAsNonRoot: true
+          runAsUser: 1000
+        serviceAccount: default
+        serviceAccountName: default
+        terminationGracePeriodSeconds: 5
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2024-12-21T16:56:24Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/name: frontend
+      pod-template-hash: 6ccd48df76
+    name: frontend-6ccd48df76
+    namespace: online-boutique
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: frontend
+      uid: 77a6cd0b-fd10-43e9-9e84-1069e2ae6bc0
+    resourceVersion: "17600"
+    uid: 61a05a19-afa5-47a2-a1cd-633b35d52f0b
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app.kubernetes.io/name: frontend
+        pod-template-hash: 6ccd48df76
+    template:
+      metadata:
+        annotations:
+          sidecar.istio.io/rewriteAppHTTPProbers: "true"
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/name: frontend
+          pod-template-hash: 6ccd48df76
+        namespace: online-boutique
+      spec:
+        containers:
+        - env:
+          - name: PORT
+            value: "8080"
+          - name: PRODUCT_CATALOG_SERVICE_ADDR
+            value: productcatalogservice:3550
+          - name: CURRENCY_SERVICE_ADDR
+            value: currencyservice:7000
+          - name: CART_SERVICE_ADDR
+            value: cartservice:7070
+          - name: RECOMMENDATION_SERVICE_ADDR
+            value: recommendationservice:8080
+          - name: SHIPPING_SERVICE_ADDR
+            value: shippingservice:50051
+          - name: CHECKOUT_SERVICE_ADDR
+            value: checkoutservice:5050
+          - name: AD_SERVICE_ADDR
+            value: adservice:9555
+          - name: COLLECTOR_SERVICE_ADDR
+            value: tempo-distributor.monitoring:4317
+          - name: ENABLE_STATS
+            value: "1"
+          - name: ENABLE_TRACING
+            value: "1"
+          - name: ENV_PLATFORM
+            value: local
+          - name: ENABLE_PROFILER
+            value: "0"
+          image: gcr.io/google-samples/microservices-demo/frontend:v0.8.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              httpHeaders:
+              - name: Cookie
+                value: shop_session-id=x-liveness-probe
+              path: /_healthz
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: server
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              httpHeaders:
+              - name: Cookie
+                value: shop_session-id=x-readiness-probe
+              path: /_healthz
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 200m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 64Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 1000
+          runAsGroup: 1000
+          runAsNonRoot: true
+          runAsUser: 1000
+        serviceAccount: default
+        serviceAccountName: default
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2024-12-21T16:56:24Z"
+    generation: 1
+    labels:
+      app: loadgenerator
+      pod-template-hash: 6674d57474
+    name: loadgenerator-6674d57474
+    namespace: online-boutique
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: loadgenerator
+      uid: 05d52903-2f7d-4533-812e-e20dd1e044a2
+    resourceVersion: "17514"
+    uid: 4beaf4dd-7adc-452d-9e7f-c52989c90396
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: loadgenerator
+        pod-template-hash: 6674d57474
+    template:
+      metadata:
+        annotations:
+          sidecar.istio.io/rewriteAppHTTPProbers: "true"
+        creationTimestamp: null
+        labels:
+          app: loadgenerator
+          pod-template-hash: 6674d57474
+        namespace: online-boutique
+      spec:
+        containers:
+        - env:
+          - name: FRONTEND_ADDR
+            value: frontend:80
+          - name: USERS
+            value: "10"
+          image: gcr.io/google-samples/microservices-demo/loadgenerator:v0.8.0
+          imagePullPolicy: IfNotPresent
+          name: main
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 300m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        initContainers:
+        - command:
+          - /bin/sh
+          - -exc
+          - |
+            echo "Init container pinging frontend: ${FRONTEND_ADDR}..."
+            STATUSCODE=$(wget --server-response http://${FRONTEND_ADDR} 2>&1 | awk '/^  HTTP/{print $2}')
+            if test $STATUSCODE -ne 200; then
+                echo "Error: Could not reach frontend - Status code: ${STATUSCODE}"
+                exit 1
+            fi
+          env:
+          - name: FRONTEND_ADDR
+            value: frontend:80
+          image: busybox:latest
+          imagePullPolicy: Always
+          name: frontend-check
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 1000
+          runAsGroup: 1000
+          runAsNonRoot: true
+          runAsUser: 1000
+        serviceAccount: default
+        serviceAccountName: default
+        terminationGracePeriodSeconds: 5
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2024-12-21T16:56:24Z"
+    generation: 1
+    labels:
+      app: paymentservice
+      pod-template-hash: 6dc94d9d69
+    name: paymentservice-6dc94d9d69
+    namespace: online-boutique
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: paymentservice
+      uid: 1d8a9158-f7ce-45d8-be8a-5b3350ece2c2
+    resourceVersion: "17604"
+    uid: 7cdf70e9-16af-4df1-9586-5cbb2c8e36fe
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: paymentservice
+        pod-template-hash: 6dc94d9d69
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: paymentservice
+          pod-template-hash: 6dc94d9d69
+        namespace: online-boutique
+      spec:
+        containers:
+        - env:
+          - name: PORT
+            value: "50051"
+          - name: DISABLE_PROFILER
+            value: "1"
+          - name: COLLECTOR_SERVICE_ADDR
+            value: tempo-distributor.monitoring:4317
+          - name: ENABLE_STATS
+            value: "1"
+          - name: ENABLE_TRACING
+            value: "1"
+          image: gcr.io/google-samples/microservices-demo/paymentservice:v0.8.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            grpc:
+              port: 50051
+              service: ""
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: server
+          ports:
+          - containerPort: 50051
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            grpc:
+              port: 50051
+              service: ""
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 200m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 64Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 1000
+          runAsGroup: 1000
+          runAsNonRoot: true
+          runAsUser: 1000
+        serviceAccount: default
+        serviceAccountName: default
+        terminationGracePeriodSeconds: 5
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2024-12-21T16:56:24Z"
+    generation: 1
+    labels:
+      app: productcatalogservice
+      pod-template-hash: db7ff8787
+    name: productcatalogservice-db7ff8787
+    namespace: online-boutique
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: productcatalogservice
+      uid: e0750150-ac61-4d37-8ff6-2d061e64972a
+    resourceVersion: "17450"
+    uid: febd8d5c-aa91-4c22-a0d2-e7954b47ffbf
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: productcatalogservice
+        pod-template-hash: db7ff8787
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: productcatalogservice
+          pod-template-hash: db7ff8787
+        namespace: online-boutique
+      spec:
+        containers:
+        - env:
+          - name: PORT
+            value: "3550"
+          - name: DISABLE_PROFILER
+            value: "1"
+          - name: COLLECTOR_SERVICE_ADDR
+            value: tempo-distributor.monitoring:4317
+          - name: ENABLE_STATS
+            value: "1"
+          - name: ENABLE_TRACING
+            value: "1"
+          image: gcr.io/google-samples/microservices-demo/productcatalogservice:v0.8.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            grpc:
+              port: 3550
+              service: ""
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: server
+          ports:
+          - containerPort: 3550
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            grpc:
+              port: 3550
+              service: ""
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 200m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 64Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 1000
+          runAsGroup: 1000
+          runAsNonRoot: true
+          runAsUser: 1000
+        serviceAccount: default
+        serviceAccountName: default
+        terminationGracePeriodSeconds: 5
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2024-12-21T16:56:24Z"
+    generation: 1
+    labels:
+      app: recommendationservice
+      pod-template-hash: 74d9896cc9
+    name: recommendationservice-74d9896cc9
+    namespace: online-boutique
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: recommendationservice
+      uid: 469fd54e-b951-4d2d-a1c9-e7ae3dae6ecf
+    resourceVersion: "17595"
+    uid: bdc8bfe3-65f0-4b92-b8eb-02978c222cb9
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: recommendationservice
+        pod-template-hash: 74d9896cc9
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: recommendationservice
+          pod-template-hash: 74d9896cc9
+        namespace: online-boutique
+      spec:
+        containers:
+        - env:
+          - name: PORT
+            value: "8080"
+          - name: PRODUCT_CATALOG_SERVICE_ADDR
+            value: productcatalogservice:3550
+          - name: DISABLE_PROFILER
+            value: "1"
+          - name: COLLECTOR_SERVICE_ADDR
+            value: tempo-distributor.monitoring:4317
+          - name: ENABLE_STATS
+            value: "1"
+          - name: ENABLE_TRACING
+            value: "1"
+          image: gcr.io/google-samples/microservices-demo/recommendationservice:v0.8.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            grpc:
+              port: 8080
+              service: ""
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: server
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            grpc:
+              port: 8080
+              service: ""
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 200m
+              memory: 450Mi
+            requests:
+              cpu: 100m
+              memory: 220Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 1000
+          runAsGroup: 1000
+          runAsNonRoot: true
+          runAsUser: 1000
+        serviceAccount: default
+        serviceAccountName: default
+        terminationGracePeriodSeconds: 5
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2024-12-21T16:56:25Z"
+    generation: 1
+    labels:
+      app: redis-cart
+      pod-template-hash: b845dc6d9
+    name: redis-cart-b845dc6d9
+    namespace: online-boutique
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: redis-cart
+      uid: 831d4cce-80f5-4925-adf3-1eb81c468f3e
+    resourceVersion: "17537"
+    uid: ae626743-2a9c-42bf-b7d3-6cdf4f5b7760
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: redis-cart
+        pod-template-hash: b845dc6d9
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: redis-cart
+          pod-template-hash: b845dc6d9
+        namespace: online-boutique
+      spec:
+        containers:
+        - image: redis:alpine
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            periodSeconds: 5
+            successThreshold: 1
+            tcpSocket:
+              port: 6379
+            timeoutSeconds: 1
+          name: redis
+          ports:
+          - containerPort: 6379
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            periodSeconds: 5
+            successThreshold: 1
+            tcpSocket:
+              port: 6379
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 125m
+              memory: 256Mi
+            requests:
+              cpu: 70m
+              memory: 200Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /data
+            name: redis-data
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 1000
+          runAsGroup: 1000
+          runAsNonRoot: true
+          runAsUser: 1000
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - emptyDir: {}
+          name: redis-data
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2024-12-21T16:56:25Z"
+    generation: 1
+    labels:
+      app: shippingservice
+      pod-template-hash: 6d7fdc5cd7
+    name: shippingservice-6d7fdc5cd7
+    namespace: online-boutique
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: shippingservice
+      uid: b735cd0c-c003-4fb5-acc7-706522e93728
+    resourceVersion: "17463"
+    uid: 192e57a9-6c15-43bf-bace-0fb719147c49
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: shippingservice
+        pod-template-hash: 6d7fdc5cd7
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: shippingservice
+          pod-template-hash: 6d7fdc5cd7
+        namespace: online-boutique
+      spec:
+        containers:
+        - env:
+          - name: PORT
+            value: "50051"
+          - name: DISABLE_PROFILER
+            value: "1"
+          - name: COLLECTOR_SERVICE_ADDR
+            value: tempo-distributor.monitoring:4317
+          - name: ENABLE_STATS
+            value: "1"
+          - name: ENABLE_TRACING
+            value: "1"
+          image: gcr.io/google-samples/microservices-demo/shippingservice:v0.8.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            grpc:
+              port: 50051
+              service: ""
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: server
+          ports:
+          - containerPort: 50051
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            grpc:
+              port: 50051
+              service: ""
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 200m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 64Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 1000
+          runAsGroup: 1000
+          runAsNonRoot: true
+          runAsUser: 1000
+        serviceAccount: default
+        serviceAccountName: default
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+kind: List
+metadata:
+  resourceVersion: ""
